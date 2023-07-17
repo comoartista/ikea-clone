@@ -62,7 +62,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* gap: 20px; */
 }
 
 .header__icons-item {
@@ -89,6 +88,17 @@ body {
 .filter-bar {
   display: flex;
   gap: 10px;
+  position: relative;
+  margin-bottom: 100px;
+}
+
+.filter-bar::after {
+  content: '';
+  position: absolute;
+  top: 75px;
+  height: 1px;
+  width: 100%;
+  background-color: #d6d6d6;
 }
 
 .filter-bar__item {
@@ -138,4 +148,81 @@ label {
 .productsList {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 60px;
+}
+
+.products-list__img {
+  max-width: 300px;
+  width: 100%;
+}
+
+.product-list__title {
+  margin-top: 35px;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.product-list__type-name {
+  margin: 2px 0 12px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #5f5f5f;
+}
+
+.product-list__current-price {
+  font-size: 20px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.product-list__currency {
+  margin-left: 4px;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.product-list__shopping {
+  margin: 15px 0 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-list__shoppingCartIcon {
+  padding: 10px;
+  width: 44px;
+  height: 44px;
+  background-color: #0059A0;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.product-list__shoppingCartIcon:hover {
+  background-color: #034983;
+}
+
+.product-list__shoppingListIcon {
+  padding: 10px;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  border-radius: 100px;
+}
+
+.product-list__shoppingListIcon:hover {
+  background-color: #e4e4e4;
+}
+
+.product-list__varianten-title {
+  margin: 16px 0 8px;
+  font-size: 12px;
+  color: #343434;
+}
+
+.product-list__variants {
+  display: flex;
+  gap: 6px;
 }

@@ -18,7 +18,7 @@ searchInput.addEventListener('input', () => {
 // Function to fetch data from the API
 async function fetchData() {
   const url =
-    'https://ikea-api.p.rapidapi.com/keywordSearch?keyword=chair&countryCode=us&languageCode=en';
+    'https://ikea-api.p.rapidapi.com/keywordSearch?keyword=chair&countryCode=de&languageCode=de';
   const options = {
     method: 'GET',
     headers: {
@@ -46,7 +46,8 @@ function createCard(products) {
     const img = document.createElement('img');
     img.src = product.image;
     img.alt = product.imageAlt;
-    img.width = '240';
+    img.classList.add('products-list__img')
+    // img.width = '300';
 
     img.addEventListener('mouseover', () => {
       img.src = product.contextualImageUrl;
@@ -58,27 +59,56 @@ function createCard(products) {
 
     const name = document.createElement('h3');
     name.textContent = product.name;
+    name.classList.add('product-list__title')
 
     const typeName = document.createElement('p');
     typeName.textContent = product.typeName;
+    typeName.classList.add('product-list__type-name')
 
     const price = document.createElement('span');
-    price.textContent = `${product.price.currentPrice} ${product.price.currency}`;
-    if (product.price.discounted) {
-      price.classList.add('red');
-    }
+    
+    const currentPrice = document.createElement('span');
+    currentPrice.textContent = product.price.currentPrice
+    currentPrice.classList.add('product-list__current-price');
+
+    const currency = document.createElement('span'); 
+    currency.textContent = product.price.currency
+    currency.classList.add('product-list__currency');
+
+    price.append(currentPrice, currency)
+
+    const shopping = document.createElement('div')
+    shopping.classList.add('product-list__shopping')
+
+    const shoppingCartIcon = document.createElement('img')
+    shoppingCartIcon.src = 'image/icons/basket-add.svg'
+    shoppingCartIcon.width = '50'
+    shoppingCartIcon.classList.add('product-list__shoppingCartIcon')
+
+    const shoppingListIcon = document.createElement('img')
+    shoppingListIcon.src = 'image/icons/shopping-list.svg'
+    shoppingListIcon.classList.add('product-list__shoppingListIcon')
+
+    shopping.append(shoppingCartIcon, shoppingListIcon)
+
+    const variantsText = document.createElement('p')
+    variantsText.textContent = 'Weitere Varianten'
+    variantsText.classList.add('product-list__varianten-title')
 
     const images = product.variants.map(variant => variant.image);
     const variants = document.createElement('div');
+    variants.classList.add('product-list__variants')
 
     images.forEach(image => {
       const variantImage = document.createElement('img');
       variantImage.src = image;
-      variantImage.width = '30';
+      variantImage.width = '40';
+
       variants.append(variantImage);
     });
 
-    li.append(img, name, typeName, price, variants);
+
+    li.append(img, name, typeName, price, shopping, variantsText, variants);
     productsList.append(li);
   });
 }
