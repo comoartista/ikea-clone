@@ -1,7 +1,9 @@
 let filteredProducts = [];
+let selectedItems = []
 
 const productsList = document.querySelector('.productsList');
 const searchInput = document.querySelector('.search__input');
+const headerBasket = document.querySelector('.header__basket')
 
 // Event listener for search input
 searchInput.addEventListener('input', () => {
@@ -85,6 +87,8 @@ function createCard(products) {
     shoppingCartIcon.width = '50'
     shoppingCartIcon.classList.add('product-list__shoppingCartIcon')
 
+    addToBasket(shoppingCartIcon)
+    
     const shoppingListIcon = document.createElement('img')
     shoppingListIcon.src = 'image/icons/shopping-list.svg'
     shoppingListIcon.classList.add('product-list__shoppingListIcon')
@@ -113,6 +117,24 @@ function createCard(products) {
   });
 }
 
+function addToBasket(item) {
+  item.addEventListener('click', (e) => {
+    const productIndex = Array.from(productsList.children).findIndex(li => li.contains(item.parentNode));
+    const selectedProduct = filteredProducts[productIndex];
+    selectedItems.push(selectedProduct);
+    console.log('Додано до кошика:', selectedProduct);
+
+    updateCartCount ()
+  });
+}
+
+function updateCartCount () {
+  const cartCount = document.createElement('span')
+  cartCount.classList.add('header__cart-count')
+  cartCount.textContent = selectedItems.length
+
+  headerBasket.appendChild(cartCount)
+}
 // Call the async function to initiate the fetching process
 fetchData();
 

@@ -64,6 +64,26 @@ body {
   align-items: center;
 }
 
+.header__basket {
+  position: relative;
+}
+
+.header__cart-count {
+  position: absolute;
+  top: 4px;
+  right: 3px;
+  background-color: #0059A0;
+  border-radius: 100px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 500;
+}
+
 .header__icons-item {
   cursor: pointer;
   width: 44px;
