@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    img {
+      display: block;
+    }
+
+    .out {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+
+    }
+
+    .cart {
+      padding: 10px;
+      border: 1px solid;
+      width: fit-content;
+      width: 100%;
+    }
+
+    .cart-bag {
+      border: 1px solid;
+      width: fit-content;
+      padding: 10px;
+      margin: 10px;
+    }
+
+    .cart-bag__item {
+      display: flex;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid;
+      width: fit-content;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cart-bag">0</div>
+  <input class="inp-search" type="text" placeholder="Serch">
+  <button class="btn-sort">Від дешевих до дорогих</button>
+  <button class="btn-sort2">Від дорогих до дешевих</button>
+
+  <input class="chec1" type="checkbox">
+
+  <select class="sel">
+    <option value="all">all</option>
+
+  </select>
+  <div class="cart-bag__wrapp">
+    <!-- <div class="cart-bag__item">
+            <div class="cart-bag__name">Xiaomi Note 12</div>
+            <div class="cart-bag__price">11999 Гр</div>
+            <button>X</button>
+        </div> -->
+  </div>
+
+  <div class="out">
+
+  </div>
+
+  <script>
+    let out = document.querySelector('.out')
+    let cart034 = document.querySelector('.cart-bag')
+    let cartOut = document.querySelector('.cart-bag__wrapp')
+    let inpSearch = document.querySelector('.inp-search')
+    let sortBtn1 = document.querySelector('.btn-sort')
+    let sortBtn2 = document.querySelector('.btn-sort2')
+    let sel = document.querySelector('.sel')
+
+
+    const shopItem = [
+      {
+        brand: 'Xiaomi',
+        model: 'Note 12',
+        category: 'mobile',
+        img: 'https://i.allo.ua/media/catalog/product/cache/3/small_image/212x184/9df78eab33525d08d6e5fb8d27136e95/1/1/111_result_7.jpg',
+        price: 11999
+
+      },
+      {
+        brand: 'Samsung',
+        model: 'Galaxy A24',
+        category: 'mobile',
+        img: 'https://i.allo.ua/media/catalog/product/cache/3/small_image/212x184/9df78eab33525d08d6e5fb8d27136e95/u/a/ua-galaxy-a24-sm-a245-sm-a245fzkvsek-536251666_result.jpg',
+        price: 9499
+
+      },
+      {
+        brand: 'Apple',
+        model: 'Ipad 10',
+        category: 'tablet',
+        img: 'https://i.allo.ua/media/catalog/product/cache/3/small_image/128x128/9df78eab33525d08d6e5fb8d27136e95/i/p/ipad_10.2-in_q421_wi-fi_space_gray_pdp_image_position-1b__ww-ru_1.jpg',
+        price: 12999
+
+      },
+      {
+        brand: 'Xiaomi',
+        model: 'Pad 4',
+        category: 'tablet',
+        img: 'https://i.allo.ua/media/catalog/product/cache/3/small_image/128x128/9df78eab33525d08d6e5fb8d27136e95/5/4/5445454545_1.jpg',
+        price: 8999
+
+      },
+      {
+        brand: 'Xiaomi',
+        model: 'RedmiBook 15',
+        category: 'laptop',
+        img: 'https://i.allo.ua/media/catalog/product/cache/3/small_image/128x128/9df78eab33525d08d6e5fb8d27136e95/_/9/_90_result_result_1_1.jpg',
+        price: 23000
+
+      },
+      {
+        brand: 'Apple',
+        model: 'MacBook air m1',
+        category: 'laptop',
+        img: 'https://i.allo.ua/media/catalog/product/cache/3/small_image/128x128/9df78eab33525d08d6e5fb8d27136e95/w/w/wwru_macbook-air_q121_spacegray_pdp-image-1_1.jpg',
+        price: 43000
+
+      },
+
+
+    ]
+
+    const cartAdd = []
+
+
+    function createCart(item) {
+
+      let cart = document.createElement('div')
+      cart.classList.add('cart')
+
+      let img = document.createElement('img')
+      img.src = `${item.img}`
+
+      let title = document.createElement('h4')
+      title.innerText = `${item.brand} ${item.model}`
+
+      let price = document.createElement('p')
+      price.innerText = `${item.price}`
+
+
+      let button = document.createElement('button')
+      button.innerText = 'X'
+
+      // button.onclick = () => {
+
+      //     cartAdd.push(item)
+      //     console.log(cartAdd);
+      //     event.target.parentNode.remove();
+      // }
+
+      let cartBtn = document.createElement('button')
+      cartBtn.innerText = 'add'
+      cartBtn.addEventListener('click', () => {
+        cartAdd.push(item)
+        console.log(cartAdd);
+        cart034.innerHTML = cartAdd.length;
+      }, { 'once': true })
+
+      cart.append(cartBtn, img, title, price)
+
+
+      return cart
+    }
+
+    function createListCart(item) {
+
+      return //тут повернути єлемент списку
+    }
+
+    function createOption(item) {
+      let option = document.createElement('option')
+      option.innerText = item
+      option.value = item
+
+      return option
+    }
+
+
+    // ДЗ зробити шоб <select> працював
+
+    function addOption() {
+
+
+
+
+      // Задача прибрати дублікати і вивести унікальні <option>
+
+      // Я створив новий масив в котрий передав тількі  .category  
+      let arr = []
+
+      shopItem.map(item => arr.push(item.category))
+
+
+      // створюємо змінну і сортуємо без дублікатів
+      const option = new Set(arr)
+
+      option.forEach(item => sel.append(createOption(item)))
+    }
+
+    addOption()
+
+    /// Потрібно створити універсальну функцію з аргументом 
+    function itemSort() {
+      out.innerHTML = ""
+
+      let sortDevice = shopItem.sort((a, b) => {
+        if (a.price > b.price) {
+          return 1
+        } else {
+          return -1
+        }
+      })
+
+
+      //sortDevice.reverse()
+      sortDevice.map(item => out.append(createCart(item)))
+    }
+
+    // Дом завдання
+    inpSearch.addEventListener('keydown', () => {
+      out.innerHTML = ""
+      shopItem.map(item => {
+
+        // Кейсенсетів шоб не реагувало на великі і маленьки букви
+        // виводити "Нічого не знайдено"
+        if (item.brand.indexOf(inpSearch.value) >= 0) {
+          out.append(createCart(item))
+        }
+
+      })
+    })
+    cart034.addEventListener('click', () => {
+      cartAdd.map(item => {
+        cartOut.append(createListCart(item))
+      })
+    })
+    sortBtn2.addEventListener('click', () => itemSort())
+    sortBtn1.addEventListener('click', () => itemSort())
+    shopItem.map(item => {
+      out.append(createCart(item))
+    })
+
+  </script>
+</body>
+
+</html>

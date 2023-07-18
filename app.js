@@ -1,9 +1,13 @@
+document.addEventListener('DOMContentLoaded', () => {
+  
 let filteredProducts = [];
 let selectedItems = []
 
 const productsList = document.querySelector('.productsList');
 const searchInput = document.querySelector('.search__input');
 const headerBasket = document.querySelector('.header__basket')
+const shoppingList = document.querySelector('.shopping-list')
+const sum = document.querySelector('.order-summary__price')
 
 // Event listener for search input
 searchInput.addEventListener('input', () => {
@@ -33,7 +37,8 @@ async function fetchData() {
     const response = await fetch(url, options);
     const result = await response.json();
     filteredProducts = result;
-    createCard(result);
+    if(productsList) { createCard(result) }
+    // if (shoppingList) {createCard(result)}
     console.log(result);
   } catch (error) {
     console.error(error);
@@ -49,7 +54,6 @@ function createCard(products) {
     img.src = product.image;
     img.alt = product.imageAlt;
     img.classList.add('products-list__img')
-    // img.width = '300';
 
     img.addEventListener('mouseover', () => {
       img.src = product.contextualImageUrl;
@@ -125,7 +129,8 @@ function addToBasket(item) {
     console.log('Додано до кошика:', selectedProduct);
 
     updateCartCount ()
-  });
+    saveSelectedItemsToLocalStorage();
+  }, { 'once': true });
 }
 
 function updateCartCount () {
@@ -135,11 +140,104 @@ function updateCartCount () {
 
   headerBasket.appendChild(cartCount)
 }
-// Call the async function to initiate the fetching process
+
+function saveSelectedItemsToLocalStorage() {
+  localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+}
+
+headerBasket.addEventListener('click', () => {
+  const queryParams = new URLSearchParams();
+  selectedItems.forEach((item, index) => {
+    queryParams.append(`item${index + 1}`, JSON.stringify(item));
+  });
+  const url = `shoppingcart.html?${queryParams.toString()}`;
+  window.location.href = url;
+});
+
+function loadSelectedItemsFromLocalStorage() {
+  const storedItems = localStorage.getItem('selectedItems');
+  if (storedItems) {
+    selectedItems = JSON.parse(storedItems);
+    updateCartCount();
+  }
+}
+
+// Retrieve the query parameters from the URL
+const queryParams = new URLSearchParams(window.location.search);
+
+// Function to decode JSON string from query parameter
+function decodeQueryItem(itemString) {
+  try {
+    return JSON.parse(itemString);
+  } catch (error) {
+    console.error('Error parsing JSON:', error);
+    return null;
+  }
+}
+
+// Iterate through the query parameters and add the selected items to the page
+for (const param of queryParams.entries()) {
+  console.log(param[1]); // Log the JSON string to identify the problematic data
+
+  const item = decodeQueryItem(param[1]);
+  if (item !== null) {
+    const shoppingListItem = document.createElement('li')
+    shoppingListItem.classList.add('shopping-list__item')
+
+    const itemImage = document.createElement('img');
+    itemImage.src = item.image;
+    itemImage.alt = item.imageAlt;
+    itemImage.classList.add('shopping-list__img')
+    shoppingListItem.appendChild(itemImage);
+
+    const productInform = document.createElement('div')
+
+    const itemName = document.createElement('p');
+    itemName.textContent = item.name;
+    itemName.classList.add('product__name')
+    productInform.appendChild(itemName);
+
+    const typeName = document.createElement('p');
+    typeName.textContent = item.typeName;
+    typeName.classList.add('type__name')
+    productInform.appendChild(typeName);
+
+    const itemPrice = document.createElement('p');
+    itemPrice.textContent = `${item.price.currentPrice} / St.`;
+    productInform.appendChild(itemPrice);
+
+    const productControls = document.createElement('div')
+    productControls.classList.add('productControls')
+    const productControlsQuantity = document.createElement('div')
+    productControlsQuantity.classList.add('productControls__quantity')
+
+    productInform.appendChild(productControls);
+
+    const input = document.createElement('input')
+    input.type = 'text'
+    input.value = 0
+    input.classList.add('productControls__input')
+
+    const btnMinus = document.createElement('button')
+    btnMinus.classList.add('productControls__btn', 'productControls__minus')
+    btnMinus.textContent = '-'
+
+    const btnPlus = document.createElement('button')
+    btnPlus.classList.add('productControls__btn', 'productControls__plus')
+    btnPlus.textContent = '+'
+
+    productControlsQuantity.append(input, btnMinus, btnPlus)
+
+    productControls.appendChild(productControlsQuantity)
+
+    shoppingListItem.append(productInform);
+    shoppingList.appendChild(shoppingListItem);
+  }
+}
+
+loadSelectedItemsFromLocalStorage();
 fetchData();
-
-
-
+});
 
 // const filterBar = document.querySelector('.filter-bar')
 
@@ -156,4 +254,3 @@ fetchData();
 //     filterBarArrow.classList.add('filter-bar__arrow--up')
 //   } 
 // })
-

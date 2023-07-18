@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css/reset.css">
+  <link rel="stylesheet" href="./style.css/style.css">
+</head>
+
+<body>
+  <header class="header">
+    <div class="container header__container header__checkout">
+      <div class="header__logo">
+        <a href="/"><img src="./image/logo.svg" alt="logo ikea"></a>
+      </div>
+      <form action="" class="search">
+        <input type="text" class="search__input" placeholder="Was suchtst du?">
+        <button class="search__button">
+          <svg width="17" height="17" viewBox="0 0 416 416" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M416 380L291.92 255.9C311.916 228.421 322.673 195.304 322.64 161.32C322.64 72.37 250.27 0 161.32 0C72.37 0 0 72.37 0 161.32C0 250.27 72.37 322.64 161.32 322.64C195.304 322.673 228.421 311.916 255.9 291.92L380 416L416 380ZM161.32 271.69C139.488 271.692 118.146 265.22 99.9924 253.092C81.839 240.964 67.6897 223.725 59.3341 203.555C50.9785 183.386 48.7917 161.191 53.0504 139.778C57.3091 118.366 67.822 98.6971 83.2596 83.2596C98.6971 67.822 118.366 57.3091 139.778 53.0504C161.191 48.7917 183.386 50.9785 203.555 59.3341C223.725 67.6897 240.964 81.839 253.092 99.9924C265.22 118.146 271.692 139.488 271.69 161.32C271.656 190.581 260.016 218.634 239.325 239.325C218.634 260.016 190.581 271.656 161.32 271.69Z"
+              fill="#222222" />
+          </svg>
+        </button>
+      </form>
+
+      <ul class="header__icons">
+        <li class="header__icons-item">
+          <img src="./image/icons/shopping-list.svg" alt="icon">
+        </li>
+        <li class="header__icons-item header__basket">
+          <img lass="" src="./image/icons/basket.svg" alt="icon">
+          <!-- <span class="header__cart-count"></span> -->
+        </li>
+        <li class="header__icons-item header__hamburger">
+          <button class="header__btn">
+            <img src="./image/icons/hamburger.svg" alt="icon">
+          </button>
+        </li>
+      </ul>
+
+    </div>
+  </header>
+
+  <div class="divider__wrapper">
+    <div class="container">
+      <div class="divider"></div>
+    </div>
+  </div>
+
+  <div class="checkout__wrapper">
+    <div class="container checkout__container">
+      <main class="checkout">
+        <div class="shoppingbag">
+          <h3 class="shoppingbag__title">Warencorb</h3>
+          <ul class="shopping-list">
+          </ul>
+        </div>
+      </main>
+      <aside class="aside-checkout">
+        <div class="order-summary">
+          <p class="order-summary__title">Zusammenfassung der Bestellung</p>
+          <div class="order-summary__sum">
+            <p class="order-summary__text">Zwischensumme</p>
+            <span class="order-summary__price">98</span>
+          </div>
+          <button class="order-summary__btn">Weiter</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+
+  <div class="shopping-cart"></div>
+
+  <script src="./app.js"></script>
+</body>
+
+</html>
